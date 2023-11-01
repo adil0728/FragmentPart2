@@ -1,10 +1,11 @@
-package com.adil0728.fragmentpart2
+package com.adil0728.fragmentpart2.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.adil0728.fragmentpart2.R
 
 
 class EditUserInfoFragment : Fragment() {

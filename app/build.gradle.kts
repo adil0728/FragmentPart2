@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.adil0728.fragmentpart2"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.adil0728.fragmentpart2"
         minSdk = 27
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -33,6 +33,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -46,4 +50,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("com.squareup.picasso:picasso:2.71828")
 }
