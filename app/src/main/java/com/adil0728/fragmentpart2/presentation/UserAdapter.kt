@@ -1,7 +1,5 @@
 package com.adil0728.fragmentpart2.presentation
 
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -9,14 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.adil0728.fragmentpart2.R
 import com.adil0728.fragmentpart2.databinding.UserItemBinding
-import com.adil0728.fragmentpart2.model.User
+import com.adil0728.fragmentpart2.domain.User
 import com.squareup.picasso.Picasso
 
 class UserAdapter(): ListAdapter<User, UserAdapter.UserViewHolder>(
     UserDiffCallback()
 ){
 
-    var onItemClickListener: OnItemClickListener? = null
+    var onItemClickListener: ((User) ->Unit)? = null
 
     interface OnItemClickListener{
         fun onItemClick(user: User)
@@ -38,16 +36,15 @@ class UserAdapter(): ListAdapter<User, UserAdapter.UserViewHolder>(
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val userItem = getItem(position)
-        holder.name.text = getItem(position).name
-        holder.secondName.text = getItem(position).secondName
-        holder.number.text = getItem(position).number
+        holder.name.text = userItem.name
+        holder.secondName.text = userItem.secondName
+        holder.number.text = userItem.number
         Picasso.get().load(userItem.photoUrl)
             .fit()
             .placeholder(R.drawable.default_user)
             .into(holder.photo)
         holder.itemView.setOnClickListener {
-
-            onItemClickListener?.onItemClick(userItem)
+            onItemClickListener?.invoke(userItem)
         }
 
     }

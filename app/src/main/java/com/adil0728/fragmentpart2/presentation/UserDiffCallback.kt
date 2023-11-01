@@ -1,7 +1,7 @@
 package com.adil0728.fragmentpart2.presentation
 
 import androidx.recyclerview.widget.DiffUtil
-import com.adil0728.fragmentpart2.model.User
+import com.adil0728.fragmentpart2.domain.User
 
 
 class UserDiffCallback : DiffUtil.ItemCallback<User>() {
