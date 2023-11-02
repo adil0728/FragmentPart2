@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,15 @@ class UserListFragment : Fragment() {
     private lateinit var userRV: RecyclerView
 
     private lateinit var viewModel: UserListViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setFragmentResultListener(REQUEST_KEY){key, bundle ->
+            val selectedUser = bundle.getParcelable<User>(EXTRA_KEY)
+            selectedUser?.let { viewModel.editShopItem(it) }
+
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,16 +79,10 @@ class UserListFragment : Fragment() {
         _binding = null
     }
 
-
     companion object {
 
-        fun newInstance(param1: String, param2: String) =
-            UserListFragment().apply {
-                arguments = Bundle().apply {
+        const val REQUEST_KEY = "request_key"
+        const val EXTRA_KEY = "extra_key"
 
-                }
-            }
     }
-
-
 }

@@ -7,4 +7,6 @@ interface UserListRepository {
     fun getUser(userId: Int): User
 
     fun getUserList(): LiveData<List<User>>
+
+    fun editUser(user:User)
 }

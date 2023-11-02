@@ -6,10 +6,12 @@ import com.adil0728.fragmentpart2.domain.User
 import com.adil0728.fragmentpart2.domain.UserListRepository
 import java.lang.RuntimeException
 
-class UserListRepositoryImpl: UserListRepository{
+class UserListRepositoryImpl : UserListRepository {
 
     private val userListLD = MutableLiveData<List<User>>()
-    private var userList: ArrayList<User> = ArrayList()
+    private var userList = sortedSetOf<User>({ o1, o2 -> o1.id.compareTo(o2.id) })
+
+    private var autoIncrementId = 1
 
     init {
         for (i in 0 until 100) {
@@ -20,13 +22,12 @@ class UserListRepositoryImpl: UserListRepository{
                 "0$i"
             }
             val user = User(
-                i,
                 "Name $i",
                 "SecondName $i",
                 "8${e}9999999",
                 "https://www.w3schools.com/w3images/lights.jpg"
             )
-            userList.add(user)
+            addUser(user)
             updateList()
 
         }
@@ -44,5 +45,19 @@ class UserListRepositoryImpl: UserListRepository{
 
     private fun updateList() {
         userListLD.value = userList.toList()
+    }
+
+    override fun editUser(user: User) {
+        val oldElement = getUser(user.id)
+        userList.remove(oldElement)
+        addUser(user)
+    }
+
+    private fun addUser(user: User) {
+        if (user.id == User.UNDEFINED_ID) {
+            user.id = autoIncrementId++
+        }
+        userList.add(user)
+        updateList()
     }
 }
